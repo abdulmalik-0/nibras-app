@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/question_model.dart';
 import '../services/supabase_service.dart';
 import '../services/auth_service.dart';
+import '../services/storage_service.dart';
 
 class EditQuestionPage extends StatefulWidget {
   final QuestionModel question;
@@ -21,6 +22,7 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
   final _formKey = GlobalKey<FormState>();
   final _supabaseService = SupabaseService();
   final _authService = AuthService();
+  final _storageService = StorageService(); // Add this
 
   late TextEditingController _questionController;
   late List<TextEditingController> _optionControllers;
@@ -30,6 +32,31 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
   String? _selectedMediaType; // 'image', 'video', 'audio', or null
   String _selectedDifficulty = 'medium'; // 'easy', 'medium', 'hard'
   bool _isLoading = false;
+
+  // Add this method
+  Future<void> _pickImage() async {
+    try {
+      final image = await _storageService.pickImage();
+      if (image != null) {
+        setState(() => _isLoading = true);
+        final imageUrl = await _storageService.uploadImage(image);
+        if (imageUrl != null) {
+          setState(() {
+            _mediaUrlController.text = imageUrl;
+            _selectedMediaType = 'image';
+          });
+        }
+        setState(() => _isLoading = false);
+      }
+    } catch (e) {
+      setState(() => _isLoading = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error picking image: $e')),
+        );
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -223,37 +250,95 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     children: [
+                      // Image Picker Button
+                      if (_selectedMediaType == 'image') ...[
+                        if (_mediaUrlController.text.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                _mediaUrlController.text,
+                                height: 200,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    height: 200,
+                                    color: Colors.grey.shade800,
+                                    child: const Center(
+                                      child: Icon(Icons.error, color: Colors.red),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton.icon(
+                                onPressed: _pickImage,
+                                icon: const Icon(Icons.image),
+                                label: const Text('اختر صورة من الجهاز'),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue,
+                                  foregroundColor: Colors.white,
+                                ),
+                              ),
+                            ),
+                            if (_mediaUrlController.text.isNotEmpty) ...[
+                              const SizedBox(width: 8),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _mediaUrlController.clear();
+                                  });
+                                },
+                                icon: const Icon(Icons.delete, color: Colors.red),
+                              ),
+                            ],
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+
                       CheckboxListTile(
                         title: const Text('صورة', style: TextStyle(color: Colors.white)),
                         value: _selectedMediaType == 'image',
                         onChanged: (value) {
                           setState(() {
                             _selectedMediaType = value! ? 'image' : null;
+                            if (!value) _mediaUrlController.clear();
                           });
                         },
                         activeColor: Colors.green,
                       ),
                       CheckboxListTile(
-                        title: const Text('مقطع فيديو', style: TextStyle(color: Colors.white)),
+                        title: const Text('مقطع فيديو (رابط)', style: TextStyle(color: Colors.white)),
                         value: _selectedMediaType == 'video',
                         onChanged: (value) {
                           setState(() {
                             _selectedMediaType = value! ? 'video' : null;
+                            _mediaUrlController.clear();
                           });
                         },
                         activeColor: Colors.green,
                       ),
                       CheckboxListTile(
-                        title: const Text('مقطع صوتي', style: TextStyle(color: Colors.white)),
+                        title: const Text('مقطع صوتي (رابط)', style: TextStyle(color: Colors.white)),
                         value: _selectedMediaType == 'audio',
                         onChanged: (value) {
                           setState(() {
                             _selectedMediaType = value! ? 'audio' : null;
+                            _mediaUrlController.clear();
                           });
                         },
                         activeColor: Colors.green,
                       ),
-                      if (_selectedMediaType != null) ...[
+                      
+                      // Text Field for URL (only if not image, or if image but want to manually edit URL)
+                      if (_selectedMediaType != null && _selectedMediaType != 'image') ...[
                         const SizedBox(height: 8),
                         _buildTextField(
                           controller: _mediaUrlController,
@@ -261,9 +346,6 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
                           validator: (value) {
                             if (_selectedMediaType != null && (value == null || value.trim().isEmpty)) {
                               return 'الرجاء إدخال الرابط';
-                            }
-                            if (value != null && value.isNotEmpty && !Uri.tryParse(value)!.isAbsolute) {
-                              return 'الرجاء إدخال رابط صحيح';
                             }
                             return null;
                           },
