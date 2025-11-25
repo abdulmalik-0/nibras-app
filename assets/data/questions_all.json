@@ -1,0 +1,1202 @@
+[
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "القاهرة",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الرياض", "القاهرة", "بغداد", "دمشق"],
+    "question": "ما هي عاصمة جمهورية مصر العربية؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "اليابان",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الصين", "كوريا", "اليابان", "الهند"],
+    "question": "ما هي الدولة التي تُعرف باسم 'أرض الشمس المشرقة'؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "باريس",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["روما", "باريس", "برلين", "لندن"],
+    "question": "في أي مدينة يقع برج إيفل؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "4",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["3", "4", "5", "6"],
+    "question": "كم عدد أضلاع المربع؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "الفيل",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الزرافة", "الحوت الأزرق", "الفيل", "الديناصور"],
+    "question": "ما هو أضخم حيوان بري على وجه الأرض؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "أحمد شوقي",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["نجيب محفوظ", "أحمد شوقي", "طه حسين", "جبران خليل جبران"],
+    "question": "من هو 'أمير الشعراء'؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "اللون الأصفر",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["اللون الأزرق", "اللون الأحمر", "اللون الأصفر", "اللون الأخضر"],
+    "question": "ما هو اللون الذي ينتج عن خلط اللون الأحمر والأخضر في الأضواء؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "لندن",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["نيويورك", "لندن", "موسكو", "سيدني"],
+    "question": "ما هي عاصمة المملكة المتحدة؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "السنة الكبيسة",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["السنة الشمسية", "السنة القمرية", "السنة الكبيسة", "السنة الهجرية"],
+    "question": "ماذا نُسمي السنة التي يكون فيها شهر فبراير 29 يوماً؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "365",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["360", "365", "366", "354"],
+    "question": "كم يوماً في السنة الميلادية العادية؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "ليوناردو دافنشي",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["مايكل أنجلو", "ليوناردو دافنشي", "فان جوخ", "بابلو بيكاسو"],
+    "question": "من هو رسام لوحة الموناليزا الشهيرة؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "شمس الدين التبريزي",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["جلال الدين الرومي", "شمس الدين التبريزي", "ابن عربي", "أبو حامد الغزالي"],
+    "question": "ما اسم الصوفي الذي كان مرشداً لجلال الدين الرومي؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "المحيط الأطلسي",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["المحيط الهادئ", "المحيط الأطلسي", "المحيط الهندي", "المحيط المتجمد الشمالي"],
+    "question": "ما هو المحيط الذي يفصل قارتي أفريقيا وأوروبا عن الأمريكتين؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "العقد",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["القرن", "العقد", "الألفية", "الجيل"],
+    "question": "ما هي الفترة الزمنية التي تعادل عشر سنوات؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "النيل",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الأمازون", "النيل", "اليانغتسي", "الميسيسيبي"],
+    "question": "ما هو أطول نهر في العالم؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "الذهب",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["النحاس", "الفضة", "الحديد", "الذهب"],
+    "question": "ما هو المعدن الوحيد السائل في درجة حرارة الغرفة؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "الأردن",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["فلسطين", "لبنان", "الأردن", "العراق"],
+    "question": "أي دولة عربية تقع فيها مدينة البتراء الأثرية؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "12",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["10", "12", "13", "14"],
+    "question": "كم عدد الساعات التي يُظهرها القرص القياسي للساعة؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "المملكة الحيوانية",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["المملكة النباتية", "المملكة الحيوانية", "مملكة الفطريات", "مملكة البكتيريا"],
+    "question": "الإنسان ينتمي إلى أي مملكة تصنيفية؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "الأمم المتحدة",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["جامعة الدول العربية", "الاتحاد الأوروبي", "الأمم المتحدة", "منظمة التجارة العالمية"],
+    "question": "ما هو الاسم المختصر للمنظمة الدولية التي تأسست عام 1945 بهدف حفظ السلام والأمن الدوليين؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "12",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["10", "11", "12", "13"],
+    "question": "كم عدد الأبراج في دائرة البروج الفلكية؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "الزئبق",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["الرصاص", "الذهب", "الزئبق", "البوتاسيوم"],
+    "question": "ما هو العنصر الكيميائي الذي يُرمز له بالرمز (Hg)؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "اللغة الباسكية",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["اللغة القشتالية", "اللغة الكاتالونية", "اللغة الباسكية", "اللغة الجاليكية"],
+    "question": "ما هي اللغة الأوروبية التي لا تنتمي إلى عائلة اللغات الهندو-أوروبية؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "جزر القمر",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["جيبوتي", "جزر القمر", "موريتانيا", "الصومال"],
+    "question": "ما هي الدولة العربية الوحيدة التي تقع بالكامل في نصف الكرة الجنوبي؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "1932",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["1926", "1932", "1945", "1956"],
+    "question": "في أي عام تم توحيد المملكة العربية السعودية رسمياً؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "النيتروجين",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["الأكسجين", "النيتروجين", "الآرغون", "ثاني أكسيد الكربون"],
+    "question": "ما هو الغاز الذي يشكل حوالي 78% من حجم الغلاف الجوي للأرض؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "هضبة التبت",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["هضبة الأناضول", "هضبة التبت", "هضبة كولومبيا", "هضبة الدكن"],
+    "question": "ما هي أكبر وأعلى هضبة في العالم وتُلقب بـ 'سقف العالم'؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "أوروبا",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["أفريقيا", "آسيا", "أوروبا", "الأمريكتان"],
+    "question": "القارة التي ليس لها صحراء تُذكر هي؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "42",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["18", "25", "36", "42"],
+    "question": "كم عدد الأجزاء التي يتكون منها القرآن الكريم؟"
+  },
+  {
+    "category": "general_knowledge",
+    "correctAnswer": "بريطانيا",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["فرنسا", "ألمانيا", "بريطانيا", "إيطاليا"],
+    "question": "ما هي الدولة الأوروبية التي منحت جائزة نوبل في الأدب للروائي نجيب محفوظ؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الأكسجين",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الهيدروجين", "النيتروجين", "الأكسجين", "ثاني أكسيد الكربون"],
+    "question": "ما هو الغاز الضروري لعملية التنفس عند الكائنات الحية؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الماء",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الزيت", "الكحول", "الزئبق", "الماء"],
+    "question": "ما هو المذيب العام الذي يُطلق عليه الصيغة الكيميائية $H_2O$؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الكربون",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["النيتروجين", "الأكسجين", "الكربون", "الحديد"],
+    "question": "ما هو العنصر الأساسي الذي تقوم عليه الحياة العضوية؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "2",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["1", "2", "3", "4"],
+    "question": "كم عدد الكواكب القريبة من الشمس قبل الأرض (عطارد والزهرة)؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الأحمر",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الأحمر", "الأخضر", "الأزرق", "البنفسجي"],
+    "question": "ما هو اللون الذي يمتص بواسطة النباتات بشكل أقل في عملية التمثيل الضوئي؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الزهرة",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["المشتري", "المريخ", "الزهرة", "زحل"],
+    "question": "ما هو الكوكب الذي يُعرف باسم 'نجمة الصباح' أو 'نجمة المساء'؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "البكتيريا",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الفطريات", "الفيروسات", "الطحالب", "البكتيريا"],
+    "question": "ما هي الكائنات الدقيقة التي يمكن أن تُعالج باستخدام المضادات الحيوية؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "7",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["6", "7", "8", "9"],
+    "question": "ما هو الرقم الهيدروجيني (pH) للماء النقي؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الحمض",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["القلوي", "الملح", "الماء", "الحمض"],
+    "question": "المادة التي لها طعم حامض وتطلق أيونات الهيدروجين ($H^+$) في الماء تُسمى؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الكلوروفيل",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الكاروتين", "الزياكسانثين", "الكلوروفيل", "الأنثوسيانين"],
+    "question": "ما هي الصبغة التي تعطي النباتات لونها الأخضر وتساعدها في امتصاص الضوء؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الدي إن إيه (DNA)",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الآر إن إيه (RNA)", "البروتين", "الدي إن إيه (DNA)", "الدهون"],
+    "question": "ما هو الحمض النووي الذي يحمل الشفرة الوراثية للكائن الحي؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الميلانين",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الكيراتين", "الكولاجين", "الميلانين", "الهموغلوبين"],
+    "question": "ما هي الصبغة المسؤولة عن لون جلد وشعر وعيون الإنسان؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "أينشتاين",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["نيوتن", "جاليليو", "أينشتاين", "ماكسويل"],
+    "question": "من هو العالم الذي طور نظرية النسبية الخاصة والعامة؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "قوة الجاذبية",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["قوة الطرد المركزي", "قوة الاحتكاك", "قوة الجاذبية", "القوة الكهرومغناطيسية"],
+    "question": "ما هي القوة التي تُبقي الكواكب في مداراتها حول الشمس؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "النيوترون",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الإلكترون", "البروتون", "الفوتون", "النيوترون"],
+    "question": "ما هو الجسيم الموجود في نواة الذرة ولا يحمل شحنة كهربائية؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "البنكرياس",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الكبد", "الكلى", "القلب", "البنكرياس"],
+    "question": "ما هي الغدة المسؤولة عن إفراز الأنسولين في الجسم؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "نيوتن",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["جاليليو", "نيوتن", "كبلر", "أينشتاين"],
+    "question": "من هو العالم الذي اكتشف قوانين الحركة والجاذبية الكونية؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "46",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["23", "46", "52", "48"],
+    "question": "كم عدد الكروموسومات الموجودة في الخلية البشرية الطبيعية؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الميثان",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["ثاني أكسيد الكربون", "الأكسجين", "الميثان", "بخار الماء"],
+    "question": "ما هو الغاز الذي يعد من الغازات الدفيئة الرئيسية وينتج عن هضم الحيوانات المجترة؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "النيوكليوتيد",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["البروتين", "النيوكليوتيد", "الدهون", "الكربوهيدرات"],
+    "question": "ما هي الوحدة الأساسية المكونة للحمض النووي (DNA و RNA)؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "0.001",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["1000", "10", "0.001", "1"],
+    "question": "كم يساوي المليمتر بوحدة المتر؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الثوريوم",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["اليورانيوم", "البلوتونيوم", "الثوريوم", "الراديوم"],
+    "question": "ما هو العنصر الكيميائي الذي يُعتبر وقوداً بديلاً محتملاً للطاقة النووية ورمزه (Th)؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الجينوم البشري",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["التمثيل الضوئي", "الاستنساخ", "النانو تكنولوجي", "الجينوم البشري"],
+    "question": "ما هو المشروع العلمي العالمي الذي تم إنجازه عام 2003 بهدف تحديد تسلسل أزواج القواعد التي تشكل الحمض النووي البشري؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "أقصى سرعة ممكنة لأي شيء في الكون",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["كتلة الضوء", "طاقة الضوء", "سرعة الصوت", "أقصى سرعة ممكنة لأي شيء في الكون"],
+    "question": "في معادلة أينشتاين الشهيرة ($E=mc^2$)، ماذا يمثل الرمز $c$؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "جزيء يحتوي على الكربون والهيدروجين",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["جزيء لا يحتوي على الأكسجين", "جزيء يحتوي على الكربون والهيدروجين", "جزيء صلب في درجة حرارة الغرفة", "جزيء يُنتج طاقة"],
+    "question": "ما هو الوصف الأدق للجزيء العضوي في علم الكيمياء؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "12",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["2", "6", "12", "18"],
+    "question": "كم عدد أزواج الأعصاب القحفية التي تنشأ مباشرة من الدماغ في الإنسان؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الزخم الزاوي",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["الطاقة الكامنة", "طاقة الحركة", "الزخم الزاوي", "القوة النووية الضعيفة"],
+    "question": "ما هي الخاصية الكمومية التي يصفها مبدأ الاستبعاد لباولي؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "3",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["1", "2", "3", "4"],
+    "question": "كم عدد أنواع الخلايا التناسلية (الجنسية) التي يمكن أن تُنتج من خلال الانقسام الاختزالي؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "المجرات",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["النجوم", "الكواكب", "السُدم", "المجرات"],
+    "question": "أي الكيانات الكونية هي التي تبتعد عن بعضها البعض بسبب تمدد الكون؟"
+  },
+  {
+    "category": "science",
+    "correctAnswer": "الأنزيمات",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["الفيتامينات", "الأجسام المضادة", "الهرمونات", "الأنزيمات"],
+    "question": "ما هي البروتينات التي تعمل كعوامل مساعدة (محفزات) حيوية لتسريع التفاعلات الكيميائية في الجسم؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "آسيا",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["أفريقيا", "أوروبا", "آسيا", "أمريكا الشمالية"],
+    "question": "ما هي أكبر قارة في العالم من حيث المساحة وعدد السكان؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "كندا",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["روسيا", "الصين", "كندا", "الولايات المتحدة الأمريكية"],
+    "question": "ما هي ثاني أكبر دولة في العالم من حيث المساحة الإجمالية بعد روسيا؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "أستراليا",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["أستراليا", "نيوزيلندا", "إندونيسيا", "الفلبين"],
+    "question": "ما هي الدولة التي تُعتبر قارة بحد ذاتها؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "الرياض",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الرياض", "جدة", "مكة المكرمة", "الدمام"],
+    "question": "ما هي عاصمة المملكة العربية السعودية؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "جبل إيفرست",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["جبل كي 2", "جبل إيفرست", "جبل فوجي", "جبل كليمنجارو"],
+    "question": "ما هي أعلى قمة جبلية في العالم؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "البحر الأحمر",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["البحر الأبيض المتوسط", "البحر الأسود", "البحر الأحمر", "بحر العرب"],
+    "question": "ما هو البحر الذي يفصل بين قارتي آسيا وأفريقيا؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "المغرب",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الجزائر", "تونس", "المغرب", "ليبيا"],
+    "question": "أي دولة عربية تطل على المحيط الأطلسي والبحر الأبيض المتوسط معاً؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "نهر الأمازون",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["نهر النيل", "نهر الأمازون", "نهر اليانغتسي", "نهر المسيسيبي"],
+    "question": "ما هو أكبر نهر في العالم من حيث حجم التدفق؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "الجزائر",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["السودان", "الجزائر", "مصر", "ليبيا"],
+    "question": "ما هي أكبر دولة عربية من حيث المساحة؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "القطب الشمالي",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["المحيط الهندي", "المحيط الهادئ", "القطب الشمالي", "البحر الكاريبي"],
+    "question": "أين تقع الدائرة القطبية الشمالية؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "المحيط الهادئ",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["المحيط الأطلسي", "المحيط الهندي", "المحيط الهادئ", "المحيط المتجمد الجنوبي"],
+    "question": "ما هو أعمق محيط في العالم؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "روسيا",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الصين", "كندا", "روسيا", "البرازيل"],
+    "question": "ما هي الدولة التي تحدها أكبر عدد من الدول؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "جبال الأنديز",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["جبال الألب", "جبال الهيمالايا", "جبال الأنديز", "جبال الروكي"],
+    "question": "ما هي أطول سلسلة جبلية على وجه الأرض؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "صحراء أتاكاما",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الصحراء الكبرى", "صحراء جوبي", "صحراء أتاكاما", "صحراء الربع الخالي"],
+    "question": "ما هي أشد صحارى العالم جفافاً وتقع في أمريكا الجنوبية؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "فنزويلا",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["البرازيل", "الأرجنتين", "كولومبيا", "فنزويلا"],
+    "question": "أي دولة تقع فيها شلالات آنجل، وهي أعلى شلالات في العالم؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "مالي",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["نيجيريا", "مالي", "كينيا", "جنوب أفريقيا"],
+    "question": "أي من الدول التالية لا تطل على البحر (دولة غير ساحلية)؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "خليج البنغال",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["البحر الأبيض المتوسط", "الخليج العربي", "بحر الشمال", "خليج البنغال"],
+    "question": "ما هو أكبر خليج في العالم؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "البحر الميت",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["البحر الأحمر", "البحر الميت", "بحر قزوين", "بحر العرب"],
+    "question": "ما هي أدنى نقطة على سطح الأرض؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "القاهرة",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الرياض", "القاهرة", "بغداد", "المنامة"],
+    "question": "ما هي أكبر مدينة عربية من حيث عدد السكان؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "11",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["8", "11", "13", "15"],
+    "question": "كم عدد الدول العربية في قارة أفريقيا؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "البحر الأسود وبحر مرمرة",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["البحر الأسود والبحر الأحمر", "بحر إيجه والبحر الأدرياتيكي", "البحر الأسود وبحر مرمرة", "البحر الأبيض المتوسط والبحر الأسود"],
+    "question": "ما هما المسطحان المائيان اللذان يربطهما مضيق البوسفور؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "لندن وباريس",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["برلين ومدريد", "لندن وباريس", "روما وفيينا", "بروكسل وأمستردام"],
+    "question": "ما هي العاصمتان الأوروبيتان اللتان يفصل بينهما نفق المانش؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "ليشتنشتاين",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["سويسرا", "ليشتنشتاين", "النمسا", "لوكسمبورغ"],
+    "question": "ما هي الدولة الوحيدة في العالم التي لا يوجد لها أي منفذ على البحر وتحدها دولة غير ساحلية؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "جبل مكينلي (دينالي)",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["جبل ويتني", "جبل لوغان", "جبل مكينلي (دينالي)", "بيكو دي أوريزابا"],
+    "question": "ما هي أعلى قمة جبلية في قارة أمريكا الشمالية؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "بحر قزوين",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["البحر الأسود", "البحر الأحمر", "بحر قزوين", "البحر الكاريبي"],
+    "question": "ما هي أكبر بحيرة مالحة مغلقة في العالم؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "إفريقيا",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["آسيا", "أفريقيا", "أوروبا", "أمريكا الجنوبية"],
+    "question": "ما هي القارة الوحيدة التي يمر بها خط الاستواء ومدار السرطان ومدار الجدي؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "سان مارينو",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["موناكو", "الفاتيكان", "سان مارينو", "أندورا"],
+    "question": "ما هي أقدم جمهورية دستورية في العالم وتُحيط بها إيطاليا من جميع الجهات؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "المحيط الأطلسي والمحيط الهادئ",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["المحيط الهندي والبحر الأحمر", "المحيط الأطلسي والبحر الأبيض المتوسط", "المحيط الأطلسي والمحيط الهادئ", "المحيط الهادئ وبحر الصين"],
+    "question": "ما هما المحيطان اللذان يربطهما قناة بنما؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "التبت",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["منغوليا", "التبت", "سيبيريا", "كشمير"],
+    "question": "ما هي المنطقة التي تُعرف بأنها 'هضبة العالم'؟"
+  },
+  {
+    "category": "geography",
+    "correctAnswer": "إسبانيا والمغرب",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["فرنسا وبريطانيا", "اليونان وتركيا", "إسبانيا والمغرب", "إيطاليا وتونس"],
+    "question": "ما هما الدولتان اللتان يربطهما مضيق جبل طارق؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "المدينة المنورة",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["مكة المكرمة", "الطائف", "المدينة المنورة", "القدس"],
+    "question": "إلى أي مدينة هاجر الرسول محمد صلى الله عليه وسلم من مكة؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "عمر بن الخطاب",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["أبو بكر الصديق", "عمر بن الخطاب", "عثمان بن عفان", "علي بن أبي طالب"],
+    "question": "من هو ثاني الخلفاء الراشدين؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "114",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["110", "114", "120", "100"],
+    "question": "كم عدد سور القرآن الكريم؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "الرومان",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["اليونان", "الفرس", "الرومان", "المصريون القدماء"],
+    "question": "من هم القوم الذين اشتهروا ببناء الكولوسيوم في روما؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "1945",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["1918", "1939", "1945", "1950"],
+    "question": "في أي عام انتهت الحرب العالمية الثانية؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "ابن سينا",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الرازي", "ابن رشد", "الخوارزمي", "ابن سينا"],
+    "question": "من هو الفيلسوف والطبيب المسلم الذي لُقب بـ 'الشيخ الرئيس'؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "الحج",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الصلاة", "الزكاة", "الحج", "الصوم"],
+    "question": "ما هو الركن الخامس من أركان الإسلام؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "7",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["5", "6", "7", "8"],
+    "question": "كم عدد أيام الخلق التي وردت في الكتب السماوية؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "1492",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["1453", "1492", "1517", "1600"],
+    "question": "في أي عام اكتشف كريستوفر كولومبوس الأمريكتين؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "المغول",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الصلبيين", "الوندال", "الفرنجة", "المغول"],
+    "question": "من هم القوم الذين قاموا بغزو بغداد وتدميرها عام 1258م؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "معركة حطين",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["معركة اليرموك", "معركة القادسية", "معركة حطين", "معركة عين جالوت"],
+    "question": "ما هي المعركة التي استرد فيها صلاح الدين الأيوبي القدس من الصليبيين؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "الوثنية",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["المسيحية", "اليهودية", "الوثنية", "المانوية"],
+    "question": "ما هي الديانة التي كانت سائدة في شبه الجزيرة العربية قبل الإسلام؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "1789",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["1750", "1776", "1789", "1800"],
+    "question": "في أي عام بدأت الثورة الفرنسية؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "المعتزلة",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الخوارج", "الشيعة", "المعتزلة", "الصوفية"],
+    "question": "ما هي الفرقة الإسلامية التي اشتهرت بالقول بخلق القرآن؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "7",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["3", "5", "7", "9"],
+    "question": "كم عدد الكنائس المذكورة في سفر الرؤيا؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "الإسكندر الأكبر",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["يوليوس قيصر", "نابليون بونابرت", "الإسكندر الأكبر", "جنكيز خان"],
+    "question": "من هو القائد الذي أسس إمبراطورية امتدت من اليونان إلى الهند في القرن الرابع قبل الميلاد؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "1917",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["1914", "1916", "1917", "1918"],
+    "question": "في أي عام صدر وعد بلفور الذي أدى إلى تأسيس وطن قومي لليهود في فلسطين؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "أهل الكهف",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["أصحاب الفيل", "أهل الكهف", "أصحاب الأخدود", "قوم عاد"],
+    "question": "ما هي القصة التي تتحدث عن مجموعة من الشباب ناموا لمدة طويلة لحماية إيمانهم؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "الإمبراطورية البيزنطية",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["الإمبراطورية الرومانية الغربية", "الإمبراطورية البيزنطية", "الإمبراطورية الفارسية", "الإمبراطورية العثمانية"],
+    "question": "ما هو الاسم الذي أُطلق على النصف الشرقي من الإمبراطورية الرومانية بعد انقسامها؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "عثمان بن عفان",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["أبو بكر الصديق", "عمر بن الخطاب", "عثمان بن عفان", "علي بن أبي طالب"],
+    "question": "من هو الخليفة الذي أمر بجمع القرآن الكريم في مصحف واحد؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "سليمان القانوني",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["محمد الفاتح", "سليمان القانوني", "سليم الأول", "عثمان الأول"],
+    "question": "من هو السلطان العثماني الذي عُرف في الغرب باسم 'سليمان العظيم'؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "1948",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["1945", "1948", "1950", "1956"],
+    "question": "في أي عام تم إعلان قيام دولة إسرائيل رسمياً؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "هولاكو خان",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["جنكيز خان", "تيمورلنك", "هولاكو خان", "قوبلاي خان"],
+    "question": "من هو القائد المغولي الذي قام بإسقاط الخلافة العباسية في بغداد؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "جوان دارك",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["ماريا تيريزا", "إليزابيث الأولى", "جوان دارك", "ماري أنطوانيت"],
+    "question": "من هي البطلة القومية الفرنسية التي قادت الجيش الفرنسي في حرب المئة عام؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "القرن السادس عشر",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["القرن الرابع عشر", "القرن الخامس عشر", "القرن السادس عشر", "القرن السابع عشر"],
+    "question": "متى بدأت حركة الإصلاح البروتستانتي التي قادها مارتن لوثر؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "علي بن أبي طالب",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["عمر بن الخطاب", "علي بن أبي طالب", "خالد بن الوليد", "معاوية بن أبي سفيان"],
+    "question": "من هو الصحابي الذي اشتهر بلقب 'أبو تراب'؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "الحسين بن علي",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["علي بن أبي طالب", "الحسين بن علي", "الحسن بن علي", "زيد بن علي"],
+    "question": "من هو حفيد الرسول محمد صلى الله عليه وسلم الذي استُشهد في معركة كربلاء؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "آلهة متعددة",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["إله واحد", "آلهة متعددة", "قوى الطبيعة", "الذات الإلهية غير معروفة"],
+    "question": "ماذا تعني كلمة 'بوليثيزم' (Polytheism)؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "الولايات المتحدة وروسيا",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["ألمانيا وفرنسا", "الولايات المتحدة وروسيا", "بريطانيا والصين", "الهند وباكستان"],
+    "question": "ما هما الدولتان اللتان كانتا طرفي النزاع الرئيسي في الحرب الباردة؟"
+  },
+  {
+    "category": "history_religion",
+    "correctAnswer": "1991",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["1989", "1991", "1995", "2000"],
+    "question": "في أي عام تم تفكيك الاتحاد السوفيتي رسمياً؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "كرة القدم",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["كرة السلة", "كرة القدم", "كرة الطائرة", "السباحة"],
+    "question": "ما هي الرياضة التي تقام فيها بطولة كأس العالم كل أربع سنوات؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "11",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["9", "10", "11", "12"],
+    "question": "كم عدد اللاعبين في كل فريق على أرض الملعب في رياضة كرة القدم؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "الأبيض",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الأبيض", "الأسود", "الأحمر", "الأزرق"],
+    "question": "ما هو لون العلم الذي يرفعه الحكم في سباقات فورمولا 1 لإعلان نهاية السباق؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "كرة السلة",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["كرة الطائرة", "كرة اليد", "كرة السلة", "الهوكي"],
+    "question": "ما هي الرياضة التي ابتكرها جيمس نايسميث؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "الجري السريع",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الرماية", "السباحة", "الجري السريع", "التنس"],
+    "question": "في أي رياضة يُستخدم مصطلح 'الخطأ الباكر' (False Start)؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "غوغل كروم",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["مايكروسوفت وورد", "غوغل كروم", "أدوبي فوتوشوب", "مايكروسوفت إكسل"],
+    "question": "أي مما يلي هو متصفح إنترنت؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "البرازيل",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الأرجنتين", "إيطاليا", "البرازيل", "ألمانيا"],
+    "question": "ما هو المنتخب الذي فاز بأكبر عدد من ألقاب كأس العالم لكرة القدم؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "جهاز الإخراج",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["وحدة المعالجة المركزية (CPU)", "الذاكرة العشوائية (RAM)", "جهاز الإدخال", "جهاز الإخراج"],
+    "question": "الطابعة تُعد مثالاً على أي نوع من أجهزة الكمبيوتر؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "200 متر",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["100 متر", "200 متر", "400 متر", "800 متر"],
+    "question": "ما هي أقصر مسافة سباق في منافسات السباحة الحرة في الألعاب الأولمبية؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "التسديدة الثلاثية",
+    "language": "ar",
+    "difficulty": "easy",
+    "options": ["الرمية الحرة", "التسديدة الثلاثية", "التسديدة الداخلية", "التمريرة"],
+    "question": "في كرة السلة، ما هي التسديدة التي تُسجل 3 نقاط؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "1928",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["1900", "1928", "1950", "1970"],
+    "question": "في أي عام أقيمت أول دورة ألعاب أولمبية حديثة شملت إشعال الشعلة الأولمبية؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "وحدة المعالجة المركزية (CPU)",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["وحدة المعالجة المركزية (CPU)", "القرص الصلب (HDD)", "شاشة العرض", "الماوس"],
+    "question": "ما هو الجزء الذي يُعتبر 'عقل' الكمبيوتر؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "التنس",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["كرة القدم", "البيسبول", "التنس", "كرة الطائرة"],
+    "question": "ما هي الرياضة التي تُستخدم فيها مصطلحات 'الحب' (Love) و 'الأربعين' (40)؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "1994",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["1985", "1990", "1994", "2000"],
+    "question": "في أي عام تم إطلاق متصفح 'نتسكيب نافيجيتور' الذي كان رائداً في بدايات الإنترنت؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "42.195 كيلومتر",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["21.097 كيلومتر", "42.195 كيلومتر", "100 كيلومتر", "5 كيلومترات"],
+    "question": "ما هي المسافة الرسمية لسباق الماراثون؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "بلوتوث",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["واي فاي", "جي بي إس", "بلوتوث", "إن إف سي"],
+    "question": "ما هي التقنية التي سُميت على اسم ملك الفايكنج الدنماركي 'هارالد بلوتوث'؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "القفز بالزانة",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["رمي الجلة", "القفز العالي", "القفز الطويل", "القفز بالزانة"],
+    "question": "في أي رياضة يُحمل الرياضي عصا طويلة ومرنة لتجاوز العارضة؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "جافا",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["بايثون", "سي شارب", "جافا", "روبي"],
+    "question": "ما هي لغة البرمجة التي تُعرف بشعار كوب القهوة؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "ميشيل بوشير",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["سيرجي بوبكا", "إيليود كيبشوج", "ميشيل بوشير", "أوسين بولت"],
+    "question": "من هو أول سبّاح في التاريخ يفوز بثماني ميداليات ذهبية في دورة ألعاب أولمبية واحدة؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "3",
+    "language": "ar",
+    "difficulty": "medium",
+    "options": ["2", "3", "4", "5"],
+    "question": "كم عدد الدوائر الإلكترونية المتكاملة (IC) التي اخترعها جاك كيلبي؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "تيم بيرنرز لي",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["بيل جيتس", "ستيف جوبز", "مارك زوكربيرج", "تيم بيرنرز لي"],
+    "question": "من هو العالم البريطاني الذي يُنسب إليه الفضل في اختراع الشبكة العنكبوتية العالمية (WWW)؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "5",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["4", "5", "6", "7"],
+    "question": "كم عدد الحلقات الملونة في شعار الألعاب الأولمبية؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "بروتوكول نقل النص الفائق",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["بروتوكول نقل الملفات", "بروتوكول نقل النص الفائق", "بروتوكول البريد البسيط", "بروتوكول التحكم في الإرسال"],
+    "question": "ماذا يمثل الاختصار HTTP في مجال الإنترنت؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "أوسين بولت",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["كارل لويس", "جيسي أوينز", "أوسين بولت", "مايكل جونسون"],
+    "question": "من هو العداء الوحيد الذي فاز بسباقي 100 متر و 200 متر في ثلاث دورات أولمبية متتالية؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "رونالدو",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["بيليه", "مارادونا", "رونالدو", "ميسي"],
+    "question": "من هو اللاعب الذي سجل أكبر عدد من الأهداف في تاريخ بطولات كأس العالم لكرة القدم؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "الطباعة ثلاثية الأبعاد",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["الطباعة بالليزر", "الطباعة النافثة للحبر", "الطباعة ثلاثية الأبعاد", "الطباعة الحرارية"],
+    "question": "ما هي التقنية التي تُعرف باسم 'التصنيع الإضافي' (Additive Manufacturing)؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "الجودو",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["التايكواندو", "الكاراتيه", "الجودو", "الكونغ فو"],
+    "question": "ما هي الرياضة القتالية التي يُطلق عليها اسم 'الطريق اللين' أو 'الطريق المرن'؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "إيثريوم",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["بيتكوين", "لايتكوين", "ريبل", "إيثريوم"],
+    "question": "ما هي العملة الرقمية التي ابتكرت مفهوم العقود الذكية (Smart Contracts)؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "1896",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["1880", "1896", "1904", "1924"],
+    "question": "في أي عام أُقيمت أول دورة ألعاب أولمبية حديثة في أثينا؟"
+  },
+  {
+    "category": "sports_tech",
+    "correctAnswer": "تكنولوجيا النانو",
+    "language": "ar",
+    "difficulty": "hard",
+    "options": ["تكنولوجيا المعلومات", "تكنولوجيا النانو", "تكنولوجيا الفضاء", "تكنولوجيا الاتصالات"],
+    "question": "ما هو مجال العلوم والهندسة الذي يتعامل مع المواد على مقياس الذرات والجزيئات (1 إلى 100 نانومتر)؟"
+  }
+]

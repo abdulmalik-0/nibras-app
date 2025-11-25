@@ -1,0 +1,24 @@
+للفئات **التنسيق المطلوب لكل فئة:**
+```json
+{
+  "id": "مثال_بالأحرف_الصغيرة_وبدون_فراغات",
+  "nameAr": "الاسم بالعربية",
+  "nameEn": "Name in English",
+  "icon": "اسم أيقونة Material (مثل: star)",
+  "color": "#رمز_لون_سداسي",
+  "order": رقم تسلسلي فريد
+} 
+
+للاساله 
+{
+  "category": "الـ id_المناسب_للفئة",
+  "correctAnswer": "الإجابة_بالعربية",
+  "language": "ar",
+  "difficulty": "easy | medium | hard",
+  "options": ["خيار 1", "خيار 2", "الإجابة_الصحيحة", "خيار 4"],
+  "question": "نص السؤال باللغة العربية؟"
+}
+و اذا فيه صور او فيديو او مقطع صوتي يضاف
+
+"mediaType": "image",
+"mediaUrl": "[https://example.com/placeholder_image.png](https://example.com/placeholder_image.png)"
