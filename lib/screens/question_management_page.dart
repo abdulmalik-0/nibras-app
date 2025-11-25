@@ -314,8 +314,28 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
                                             color: Colors.blue.shade300,
                                             size: 16,
                                           ),
-                                      ],
+                                          ],
                                     ),
+                                    if (question.mediaType == 'image' && question.mediaUrl != null && question.mediaUrl!.isNotEmpty)
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 12.0),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: Image.network(
+                                            question.mediaUrl!,
+                                            height: 120,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) =>
+                                                const SizedBox(
+                                                  height: 120,
+                                                  child: Center(
+                                                    child: Icon(Icons.broken_image, color: Colors.white54),
+                                                  ),
+                                                ),
+                                          ),
+                                        ),
+                                      ),
                                   ],
                                 ),
                                 trailing: Row(

@@ -75,6 +75,11 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
     // Set media type
     _selectedMediaType = widget.question.mediaType == 'none' ? null : widget.question.mediaType;
     
+    // Fallback: If mediaType is none/null but we have a URL, assume it's an image
+    if (_selectedMediaType == null && widget.question.mediaUrl != null && widget.question.mediaUrl!.isNotEmpty) {
+       _selectedMediaType = 'image';
+    }
+    
     // Set difficulty
     _selectedDifficulty = widget.question.difficulty;
   }
@@ -309,6 +314,7 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
                               _buildTextField(
                                 controller: _mediaUrlController,
                                 label: 'رابط الصورة',
+                                onChanged: (value) => setState(() {}),
                                 validator: (value) {
                                   if (_selectedMediaType == 'image' && (value == null || value.trim().isEmpty)) {
                                     return 'الرجاء رفع صورة أو إدخال رابط';
@@ -354,6 +360,23 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
                                       ),
                                     ),
                                   ],
+                                ),
+                              ] else ...[
+                                const SizedBox(height: 12),
+                                Container(
+                                  height: 100,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.05),
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(color: Colors.white.withOpacity(0.1)),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      'لم يتم اختيار صورة بعد',
+                                      style: TextStyle(color: Colors.white54),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ],
@@ -512,6 +535,7 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
     required String label,
     int maxLines = 1,
     String? Function(String?)? validator,
+    void Function(String)? onChanged,
   }) {
     return TextFormField(
       controller: controller,
@@ -540,6 +564,7 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
         ),
       ),
       validator: validator,
+      onChanged: onChanged,
     );
   }
 
