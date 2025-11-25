@@ -151,6 +151,55 @@ class SupabaseService {
     }
   }
 
+  /// Create a new question
+  Future<void> createQuestion(Map<String, dynamic> data) async {
+    try {
+      await _supabase
+          .from('questions')
+          .insert(data);
+    } catch (e) {
+      print('SupabaseService: Error creating question: $e');
+      rethrow;
+    }
+  }
+
+  /// Delete a question
+  Future<void> deleteQuestion(String questionId) async {
+    try {
+      await _supabase
+          .from('questions')
+          .delete()
+          .eq('id', questionId);
+    } catch (e) {
+      print('SupabaseService: Error deleting question: $e');
+      rethrow;
+    }
+  }
+
+  /// Get all questions (for admin management) with pagination
+  Future<List<QuestionModel>> getAllQuestions({int limit = 20, int offset = 0, String? categoryId}) async {
+    try {
+      var query = _supabase
+          .from('questions')
+          .select();
+      
+      if (categoryId != null) {
+        query = query.eq('category_id', categoryId);
+      }
+      
+      final response = await query
+          .order('created_at', ascending: false)
+          .range(offset, offset + limit - 1);
+      
+      return (response as List)
+          .map((q) => QuestionModel.fromSupabase(q))
+          .toList();
+    } catch (e) {
+      print('SupabaseService: Error getting all questions: $e');
+      return [];
+    }
+  }
+
   // ============================================
   // ANSWERED QUESTIONS OPERATIONS
   // ============================================
@@ -366,6 +415,28 @@ class SupabaseService {
     }
   }
 
+  /// Resolve ALL reports for a question (when admin fixes it)
+  Future<void> resolveAllReportsForQuestion(
+    String questionId,
+    bool isValid,
+    String adminId,
+  ) async {
+    try {
+      // 1. Get all pending reports for this question
+      final reports = await getQuestionReports(questionId);
+      final pendingReports = reports.where((r) => r['status'] == 'pending').toList();
+
+      // 2. Resolve each one
+      for (var report in pendingReports) {
+        final userId = report['user_id'] as String;
+        await resolveReport(questionId, userId, isValid, adminId);
+      }
+    } catch (e) {
+      print('SupabaseService: Error resolving all reports: $e');
+      rethrow;
+    }
+  }
+
   /// Delete a report
   Future<void> deleteReport(String questionId, String userId) async {
     try {
@@ -383,6 +454,26 @@ class SupabaseService {
       });
     } catch (e) {
       print('SupabaseService: Error deleting report: $e');
+      rethrow;
+    }
+  }
+
+  /// Delete ALL reports for a question
+  Future<void> deleteQuestionReports(String questionId) async {
+    try {
+      // Delete all reports for this question
+      await _supabase
+          .from('reports')
+          .delete()
+          .eq('question_id', questionId);
+      
+      // Reset report count for the question
+      await _supabase
+          .from('questions')
+          .update({'report_count': 0})
+          .eq('id', questionId);
+    } catch (e) {
+      print('SupabaseService: Error deleting question reports: $e');
       rethrow;
     }
   }

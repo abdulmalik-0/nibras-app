@@ -134,6 +134,46 @@ class _ReportedQuestionsPageState extends State<ReportedQuestionsPage> with Sing
     }
   }
 
+  Future<void> _deleteQuestionReports(String questionId) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('حذف جميع البلاغات'),
+        content: const Text('هل أنت متأكد من حذف جميع البلاغات لهذا السؤال؟ سيتم تصفير عداد البلاغات.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('إلغاء'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('حذف الجميع'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      try {
+        await _supabaseService.deleteQuestionReports(questionId);
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('تم حذف جميع البلاغات'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        
+        await _loadReportedQuestions();
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('حدث خطأ: $e')),
+        );
+      }
+    }
+  }
+
   void _showMediaDialog(QuestionModel question) {
     if (question.mediaUrl == null || question.mediaUrl!.isEmpty) return;
 
@@ -388,9 +428,32 @@ class _ReportedQuestionsPageState extends State<ReportedQuestionsPage> with Sing
                 'ID: ${question.id}',
                 style: TextStyle(color: Colors.grey.shade400, fontSize: 12),
               ),
-              Text(
-                'عدد البلاغات: ${question.reportCount}',
-                style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'عدد البلاغات: ${question.reportCount}',
+                    style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
+                  ),
+                  TextButton.icon(
+                    onPressed: () => _deleteQuestionReports(question.id),
+                    icon: const Icon(Icons.delete_sweep, size: 16, color: Colors.redAccent),
+                    label: const Text(
+                      'حذف الكل', 
+                      style: TextStyle(color: Colors.redAccent, fontSize: 12, fontWeight: FontWeight.bold)
+                    ),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      minimumSize: Size.zero,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      backgroundColor: Colors.red.withOpacity(0.1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        side: BorderSide(color: Colors.red.withOpacity(0.5)),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               if (question.mediaUrl != null && question.mediaUrl!.isNotEmpty) ...[
                 const SizedBox(height: 4),
@@ -516,26 +579,46 @@ class _ReportedQuestionsPageState extends State<ReportedQuestionsPage> with Sing
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        color: const Color(0xFF2D2D44), // Slightly lighter than background
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Header: User Info & Delete Button
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.person, color: Colors.white70, size: 20),
-              const SizedBox(width: 8),
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.deepPurple.shade300,
+                child: Text(
+                  (report['username'] ?? '?')[0].toUpperCase(),
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       report['username'] ?? 'مجهول',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                     Text(
                       report['email'] ?? 'لا يوجد بريد',
@@ -544,89 +627,119 @@ class _ReportedQuestionsPageState extends State<ReportedQuestionsPage> with Sing
                   ],
                 ),
               ),
+              if (status == 'pending' && userId != null)
+                IconButton(
+                  onPressed: () => _deleteReport(question.id, userId),
+                  icon: const Icon(Icons.close, color: Colors.redAccent),
+                  tooltip: 'حذف البلاغ',
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.red.withOpacity(0.1),
+                    padding: const EdgeInsets.all(8),
+                  ),
+                ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            report['reason'] ?? 'لا يوجد سبب',
-            style: TextStyle(color: Colors.grey.shade300),
+          const SizedBox(height: 16),
+          
+          // Reason Box
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.white.withOpacity(0.05)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'سبب البلاغ:',
+                  style: TextStyle(color: Colors.amber.shade700, fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  report['reason'] ?? 'لا يوجد سبب',
+                  style: const TextStyle(color: Colors.white70, height: 1.4),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 8),
+          
+          const SizedBox(height: 12),
+          
+          // Actions Row (Copy & Date)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
-                onTap: () {
+              TextButton.icon(
+                onPressed: () {
                   Clipboard.setData(ClipboardData(text: report['reason'] ?? ''));
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('تم نسخ نص البلاغ')),
                   );
                 },
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.copy, size: 14, color: Colors.blueAccent),
-                    SizedBox(width: 4),
-                    Text(
-                      'نسخ البلاغ',
-                      style: TextStyle(color: Colors.blueAccent, fontSize: 12),
-                    ),
-                  ],
+                icon: const Icon(Icons.copy, size: 16, color: Colors.blueAccent),
+                label: const Text('نسخ النص', style: TextStyle(color: Colors.blueAccent, fontSize: 12)),
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  minimumSize: Size.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
               ),
               Text(
-                intl.DateFormat('yyyy/MM/dd').format(timestamp),
+                intl.DateFormat('yyyy/MM/dd - hh:mm a').format(timestamp),
                 style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
               ),
             ],
           ),
+
           if (resolvedAt != null) ...[
             const SizedBox(height: 8),
-            Text(
-              'تم الحل: ${intl.DateFormat('yyyy/MM/dd').format(resolvedAt)}',
-              style: TextStyle(fontSize: 12, color: Colors.green.shade300),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.green.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                'تم الحل: ${intl.DateFormat('yyyy/MM/dd').format(resolvedAt)}',
+                style: TextStyle(fontSize: 12, color: Colors.green.shade300),
+              ),
             ),
           ],
+
+          // Action Buttons (Valid/Invalid)
           if (status == 'pending' && userId != null) ...[
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
                   child: ElevatedButton.icon(
                     onPressed: () => _resolveReport(question, userId, true),
-                    icon: const Icon(Icons.check_circle, size: 18),
+                    icon: const Icon(Icons.check_circle_outline, size: 20),
                     label: const Text('بلاغ صحيح'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: Colors.green.shade700,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 12),
                 Expanded(
                   child: ElevatedButton.icon(
                     onPressed: () => _resolveReport(question, userId, false),
-                    icon: const Icon(Icons.cancel, size: 18),
+                    icon: const Icon(Icons.cancel_outlined, size: 20),
                     label: const Text('غير صحيح'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
+                      backgroundColor: Colors.orange.shade800,
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () => _deleteReport(question.id, userId),
-                    icon: const Icon(Icons.delete, size: 18),
-                    label: const Text('حذف'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                   ),
                 ),

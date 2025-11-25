@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'category_selection.dart';
 import 'reported_questions_page.dart';
 import 'user_management_page.dart';
+import 'question_management_page.dart';
 import 'profile_page.dart';
 import '../services/auth_service.dart';
 
@@ -25,7 +26,7 @@ class _MainMenuState extends State<MainMenu> {
 
   Future<void> _checkAdminStatus() async {
     final user = await _authService.getUserDetails();
-    if (user != null) {
+    if (mounted && user != null) {
       setState(() {
         _isAdmin = user.isAdmin;
         _isSuperAdmin = user.isSuperAdmin;
@@ -220,6 +221,53 @@ class _MainMenuState extends State<MainMenu> {
                                   SizedBox(width: 12),
                                   Text(
                                     'لوحة المشرف (البلاغات)',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          
+                          const SizedBox(height: 16),
+
+                          // Manage Questions Button (Admin Only)
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: Colors.green.withOpacity(0.2),
+                              border: Border.all(
+                                color: Colors.green.withOpacity(0.5),
+                                width: 1,
+                              ),
+                            ),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const QuestionManagementPage(),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                backgroundColor: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                              ),
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.quiz, size: 24, color: Colors.white),
+                                  SizedBox(width: 12),
+                                  Text(
+                                    'إدارة الأسئلة',
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
