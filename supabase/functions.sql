@@ -102,3 +102,32 @@ BEGIN
   DELETE FROM auth.users WHERE id = auth.uid();
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- ============================================
+-- FUNCTION: Reset category progress
+-- ============================================
+CREATE OR REPLACE FUNCTION reset_category_progress(
+  user_id_param UUID,
+  category_id_param TEXT
+)
+RETURNS VOID AS $$
+DECLARE
+  deleted_count INTEGER;
+BEGIN
+  -- 1. Delete from answered_questions for this user and questions in this category
+  WITH deleted AS (
+    DELETE FROM answered_questions
+    WHERE user_id = user_id_param
+    AND question_id IN (
+      SELECT id FROM questions WHERE category_id = category_id_param
+    )
+    RETURNING *
+  )
+  SELECT count(*) INTO deleted_count FROM deleted;
+
+  -- 2. Update user's questions_answered_count
+  UPDATE users
+  SET questions_answered_count = GREATEST(questions_answered_count - deleted_count, 0)
+  WHERE id = user_id_param;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;

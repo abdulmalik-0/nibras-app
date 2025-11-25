@@ -217,7 +217,7 @@ class SupabaseService {
       
       // Increment user's questions_answered_count
       await _supabase.rpc('increment_questions_answered', params: {
-        'user_id': userId,
+        'user_id_param': userId,
       });
     } catch (e) {
       print('SupabaseService: Error marking question as answered: $e');
@@ -267,6 +267,19 @@ class SupabaseService {
     } catch (e) {
       print('SupabaseService: Error getting answered count: $e');
       return 0;
+    }
+  }
+
+  /// Reset progress for a specific category
+  Future<void> resetCategoryProgress(String userId, String categoryId) async {
+    try {
+      await _supabase.rpc('reset_category_progress', params: {
+        'user_id_param': userId,
+        'category_id_param': categoryId,
+      });
+    } catch (e) {
+      print('SupabaseService: Error resetting category progress: $e');
+      rethrow;
     }
   }
 

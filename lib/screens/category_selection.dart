@@ -94,6 +94,49 @@ class _CategorySelectionState extends State<CategorySelection> {
     };
   }
 
+  Future<void> _resetCategoryProgress(String categoryId) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('إعادة تعيين التقدم'),
+        content: const Text('هل أنت متأكد من حذف جميع إجاباتك في هذا القسم؟ لا يمكن التراجع عن هذا الإجراء.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('إلغاء'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('إعادة تعيين'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      try {
+        final authService = AuthService();
+        final userId = authService.currentUser?.id;
+        if (userId != null) {
+          await SupabaseService().resetCategoryProgress(userId, categoryId);
+          setState(() {}); // Refresh UI
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('تم إعادة تعيين التقدم بنجاح'), backgroundColor: Colors.green),
+            );
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error resetting progress: $e')),
+          );
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -216,66 +259,84 @@ class _CategorySelectionState extends State<CategorySelection> {
                                     ),
                                   ],
                                 ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                child: Stack(
                                   children: [
-                                    // Remaining questions badge at top
-                                    FutureBuilder<Map<String, int>>(
-                                      future: _getCategoryProgress(category.id),
-                                      builder: (context, progressSnapshot) {
-                                        if (progressSnapshot.hasData) {
-                                          final remaining = progressSnapshot.data!['remaining'] ?? 0;
-                                          final total = progressSnapshot.data!['total'] ?? 0;
-                                          
-                                          return Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                            decoration: BoxDecoration(
-                                              color: isSelected 
-                                                  ? Colors.white.withOpacity(0.2)
-                                                  : color.withOpacity(0.1),
-                                              borderRadius: BorderRadius.circular(12),
-                                            ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        // Remaining questions badge at top
+                                        FutureBuilder<Map<String, int>>(
+                                          future: _getCategoryProgress(category.id),
+                                          builder: (context, progressSnapshot) {
+                                            if (progressSnapshot.hasData) {
+                                              final remaining = progressSnapshot.data!['remaining'] ?? 0;
+                                              final total = progressSnapshot.data!['total'] ?? 0;
+                                              
+                                              return Container(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                decoration: BoxDecoration(
+                                                  color: isSelected 
+                                                      ? Colors.white.withOpacity(0.2)
+                                                      : color.withOpacity(0.1),
+                                                  borderRadius: BorderRadius.circular(12),
+                                                ),
+                                                child: Text(
+                                                  'متبقي: $remaining/$total',
+                                                  style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: isSelected ? Colors.white : color,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            return const SizedBox(height: 20);
+                                          },
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Center(
+                                          child: Icon(
+                                            icon,
+                                            size: 50,
+                                            color: isSelected ? Colors.white : color,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                                          child: Center(
                                             child: Text(
-                                              'متبقي: $remaining/$total',
+                                              category.nameAr,
+                                              textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                fontSize: 11,
+                                                fontSize: 16,
                                                 fontWeight: FontWeight.bold,
-                                                color: isSelected ? Colors.white : color,
+                                                color: isSelected ? Colors.white : Colors.black87,
                                               ),
                                             ),
-                                          );
-                                        }
-                                        return const SizedBox(height: 20);
-                                      },
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Icon(
-                                      icon,
-                                      size: 50,
-                                      color: isSelected ? Colors.white : color,
-                                    ),
-                                    const SizedBox(height: 12),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                                      child: Text(
-                                        category.nameAr,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: isSelected ? Colors.white : Colors.black87,
+                                          ),
                                         ),
+                                        if (isSelected)
+                                          const Padding(
+                                            padding: EdgeInsets.only(top: 8),
+                                            child: Icon(
+                                              Icons.check_circle_rounded,
+                                              color: Colors.white,
+                                              size: 24,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      child: IconButton(
+                                        icon: const Icon(Icons.refresh, size: 20),
+                                        color: isSelected ? Colors.white70 : Colors.grey.shade400,
+                                        onPressed: () => _resetCategoryProgress(category.id),
+                                        tooltip: 'إعادة تعيين التقدم',
                                       ),
                                     ),
-                                    if (isSelected)
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 8),
-                                        child: Icon(
-                                          Icons.check_circle_rounded,
-                                          color: Colors.white,
-                                          size: 24,
-                                        ),
-                                      ),
                                   ],
                                 ),
                               ),

@@ -170,20 +170,21 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
         title: const Text('إدارة الأسئلة'),
         backgroundColor: Colors.deepPurple.shade900,
         foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AddQuestionPage()),
-              );
-              if (result == true) {
-                _filterByCategory(_selectedCategoryId); // Reload
-              }
-            },
-          ),
-        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddQuestionPage()),
+          );
+          if (result == true) {
+            _filterByCategory(_selectedCategoryId); // Reload
+          }
+        },
+        backgroundColor: Colors.amber,
+        foregroundColor: Colors.black,
+        icon: const Icon(Icons.add),
+        label: const Text('إضافة سؤال'),
       ),
       body: Container(
         decoration: BoxDecoration(

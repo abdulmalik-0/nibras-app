@@ -247,7 +247,7 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
               }),
               const SizedBox(height: 16),
 
-              // Media Type Selection (Reused Logic)
+              // Media Type Selection
               const Text(
                 'الوسائط (اختياري):',
                 style: TextStyle(
@@ -263,57 +263,7 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     children: [
-                      if (_selectedMediaType == 'image') ...[
-                        if (_mediaUrlController.text.isNotEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                _mediaUrlController.text,
-                                height: 200,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    height: 200,
-                                    color: Colors.grey.shade800,
-                                    child: const Center(
-                                      child: Icon(Icons.error, color: Colors.red),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton.icon(
-                                onPressed: _pickImage,
-                                icon: const Icon(Icons.image),
-                                label: const Text('اختر صورة من الجهاز'),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                  foregroundColor: Colors.white,
-                                ),
-                              ),
-                            ),
-                            if (_mediaUrlController.text.isNotEmpty) ...[
-                              const SizedBox(width: 8),
-                              IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _mediaUrlController.clear();
-                                  });
-                                },
-                                icon: const Icon(Icons.delete, color: Colors.red),
-                              ),
-                            ],
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                      ],
+                      // Image Selection
                       CheckboxListTile(
                         title: const Text('صورة', style: TextStyle(color: Colors.white)),
                         value: _selectedMediaType == 'image',
@@ -325,39 +275,137 @@ class _AddQuestionPageState extends State<AddQuestionPage> {
                         },
                         activeColor: Colors.green,
                       ),
+
+                      if (_selectedMediaType == 'image') ...[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          child: Column(
+                            children: [
+                              // Upload Button
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton.icon(
+                                  onPressed: _pickImage,
+                                  icon: const Icon(Icons.cloud_upload),
+                                  label: const Text('رفع صورة من الجهاز'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue.shade700,
+                                    foregroundColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(vertical: 12),
+                                  ),
+                                ),
+                              ),
+                              
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 12),
+                                child: Row(
+                                  children: [
+                                    Expanded(child: Divider(color: Colors.white24)),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 8),
+                                      child: Text('أو ضع رابط مباشر', style: TextStyle(color: Colors.white54, fontSize: 12)),
+                                    ),
+                                    Expanded(child: Divider(color: Colors.white24)),
+                                  ],
+                                ),
+                              ),
+
+                              // URL Field
+                              _buildTextField(
+                                controller: _mediaUrlController,
+                                label: 'رابط الصورة',
+                                validator: (value) {
+                                  if (_selectedMediaType == 'image' && (value == null || value.trim().isEmpty)) {
+                                    return 'الرجاء رفع صورة أو إدخال رابط';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              
+                              // Preview
+                              if (_mediaUrlController.text.isNotEmpty) ...[
+                                const SizedBox(height: 12),
+                                Stack(
+                                  alignment: Alignment.topRight,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        _mediaUrlController.text,
+                                        height: 200,
+                                        width: double.infinity,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) => Container(
+                                          height: 100,
+                                          width: double.infinity,
+                                          color: Colors.grey.shade800,
+                                          child: const Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.broken_image, color: Colors.white54),
+                                              SizedBox(height: 4),
+                                              Text('تعذر تحميل الصورة', style: TextStyle(color: Colors.white54)),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () => setState(() => _mediaUrlController.clear()),
+                                      icon: const CircleAvatar(
+                                        backgroundColor: Colors.red,
+                                        radius: 12,
+                                        child: Icon(Icons.close, size: 16, color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ],
+
+                      // Video Selection
                       CheckboxListTile(
                         title: const Text('مقطع فيديو (رابط)', style: TextStyle(color: Colors.white)),
                         value: _selectedMediaType == 'video',
                         onChanged: (value) {
                           setState(() {
                             _selectedMediaType = value! ? 'video' : null;
-                            _mediaUrlController.clear();
+                            if (!value) _mediaUrlController.clear();
                           });
                         },
                         activeColor: Colors.green,
                       ),
+
+                      // Audio Selection
                       CheckboxListTile(
                         title: const Text('مقطع صوتي (رابط)', style: TextStyle(color: Colors.white)),
                         value: _selectedMediaType == 'audio',
                         onChanged: (value) {
                           setState(() {
                             _selectedMediaType = value! ? 'audio' : null;
-                            _mediaUrlController.clear();
+                            if (!value) _mediaUrlController.clear();
                           });
                         },
                         activeColor: Colors.green,
                       ),
-                      if (_selectedMediaType != null && _selectedMediaType != 'image') ...[
-                        const SizedBox(height: 8),
-                        _buildTextField(
-                          controller: _mediaUrlController,
-                          label: 'رابط الوسائط',
-                          validator: (value) {
-                            if (_selectedMediaType != null && (value == null || value.trim().isEmpty)) {
-                              return 'الرجاء إدخال الرابط';
-                            }
-                            return null;
-                          },
+                      
+                      // Text Field for Video/Audio URL
+                      if (_selectedMediaType == 'video' || _selectedMediaType == 'audio') ...[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          child: _buildTextField(
+                            controller: _mediaUrlController,
+                            label: 'رابط الوسائط',
+                            validator: (value) {
+                              if (_selectedMediaType != null && (value == null || value.trim().isEmpty)) {
+                                return 'الرجاء إدخال الرابط';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
                       ],
                     ],
