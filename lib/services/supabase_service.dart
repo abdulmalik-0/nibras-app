@@ -61,6 +61,77 @@ class SupabaseService {
     }
   }
 
+  /// Subscribe user to a plan
+  Future<void> subscribeUser(String userId, String planType) async {
+    try {
+      final now = DateTime.now().toUtc();
+      DateTime endDate;
+      
+      if (planType == 'monthly') {
+        endDate = now.add(const Duration(days: 30));
+      } else if (planType == 'yearly') {
+        endDate = now.add(const Duration(days: 365));
+      } else {
+        throw Exception('Invalid plan type');
+      }
+
+      await _supabase
+          .from('users')
+          .update({
+            'is_vip': true, // Auto-enable VIP
+            'subscription_plan': planType,
+            'subscription_end_date': endDate.toIso8601String(),
+          })
+          .eq('id', userId);
+    } catch (e) {
+      print('SupabaseService: Error subscribing user: $e');
+      rethrow;
+    }
+  }
+
+  /// Update user VIP status (super admin only)
+  Future<void> updateUserVipStatus(String userId, bool isVip) async {
+    try {
+      await _supabase
+          .from('users')
+          .update({
+            'is_vip': isVip,
+          })
+          .eq('id', userId);
+    } catch (e) {
+      print('SupabaseService: Error updating user VIP status: $e');
+      rethrow;
+    }
+  }
+
+  /// Use free trial for a category
+  Future<void> useFreeTrial(String userId, String categoryId) async {
+    try {
+      // 1. Get current usage
+      final user = await getUser(userId);
+      if (user == null) throw Exception('User not found');
+
+      final Map<String, dynamic> currentUsage = {};
+      user.freeTrialUsage.forEach((key, value) {
+        currentUsage[key] = value.toIso8601String();
+      });
+
+      // 2. Update with new usage
+      currentUsage[categoryId] = DateTime.now().toIso8601String();
+
+      // 3. Save to DB
+      await _supabase
+          .from('users')
+          .update({
+            'free_trial_usage': currentUsage,
+          })
+          .eq('id', userId);
+    } catch (e) {
+      print('SupabaseService: Error using free trial: $e');
+      rethrow;
+    }
+  }
+
   // ============================================
   // CATEGORY OPERATIONS
   // ============================================
@@ -79,6 +150,29 @@ class SupabaseService {
     } catch (e) {
       print('SupabaseService: Error getting categories: $e');
       return [];
+    }
+  }
+
+  /// Update category visibility (super admin only)
+  Future<void> updateCategoryVisibility(String categoryId, String visibility) async {
+    try {
+      final response = await _supabase
+          .from('categories')
+          .update({
+            'visibility': visibility,
+          })
+          .eq('id', categoryId)
+          .select();
+      
+      if (response.isEmpty) {
+        print('SupabaseService: Warning - No category updated for ID $categoryId. Check permissions or ID validity.');
+        throw Exception('Failed to update category. It may not exist or you lack permissions.');
+      }
+      
+      print('SupabaseService: Updated category $categoryId to visibility=$visibility');
+    } catch (e) {
+      print('SupabaseService: Error updating category visibility: $e');
+      rethrow;
     }
   }
 
@@ -177,7 +271,13 @@ class SupabaseService {
   }
 
   /// Get all questions (for admin management) with pagination
-  Future<List<QuestionModel>> getAllQuestions({int limit = 20, int offset = 0, String? categoryId}) async {
+  Future<List<QuestionModel>> getAllQuestions({
+    int limit = 20, 
+    int offset = 0, 
+    String? categoryId, 
+    String? difficulty,
+    String? searchQuery,
+  }) async {
     try {
       var query = _supabase
           .from('questions')
@@ -185,6 +285,14 @@ class SupabaseService {
       
       if (categoryId != null) {
         query = query.eq('category_id', categoryId);
+      }
+
+      if (difficulty != null) {
+        query = query.eq('difficulty', difficulty);
+      }
+
+      if (searchQuery != null && searchQuery.isNotEmpty) {
+        query = query.ilike('question', '%$searchQuery%');
       }
       
       final response = await query
@@ -488,6 +596,56 @@ class SupabaseService {
     } catch (e) {
       print('SupabaseService: Error deleting question reports: $e');
       rethrow;
+    }
+  }
+  // ============================================
+  // STATISTICS OPERATIONS
+  // ============================================
+
+  /// Get question counts per category and difficulty
+  Future<List<Map<String, dynamic>>> getCategoryQuestionCounts() async {
+    try {
+      final response = await _supabase.rpc('get_category_question_counts');
+      return List<Map<String, dynamic>>.from(response);
+    } catch (e) {
+      print('SupabaseService: Error getting category question counts: $e');
+      return [];
+    }
+  }
+
+  /// Get general report stats
+  Future<Map<String, dynamic>> getReportStats() async {
+    try {
+      final response = await _supabase.rpc('get_report_stats');
+      if (response is List && response.isNotEmpty) {
+        return response.first as Map<String, dynamic>;
+      }
+      return {};
+    } catch (e) {
+      print('SupabaseService: Error getting report stats: $e');
+      return {};
+    }
+  }
+
+  /// Get top admin resolvers
+  Future<List<Map<String, dynamic>>> getTopAdminResolvers() async {
+    try {
+      final response = await _supabase.rpc('get_top_admin_resolvers');
+      return List<Map<String, dynamic>>.from(response);
+    } catch (e) {
+      print('SupabaseService: Error getting top admin resolvers: $e');
+      return [];
+    }
+  }
+
+  /// Get most played categories
+  Future<List<Map<String, dynamic>>> getMostPlayedCategories() async {
+    try {
+      final response = await _supabase.rpc('get_most_played_categories');
+      return List<Map<String, dynamic>>.from(response);
+    } catch (e) {
+      print('SupabaseService: Error getting most played categories: $e');
+      return [];
     }
   }
 }

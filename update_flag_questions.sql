@@ -1,0 +1,35 @@
+-- Delete existing questions for 'world_flags' category
+DELETE FROM questions WHERE category_id = 'world_flags';
+
+-- Insert new questions
+INSERT INTO questions (category_id, question, correct_answer, options, difficulty, language, media_type, media_url) VALUES
+('world_flags', 'ما هو علم الدولة ؟', 'كندا', '{"أستراليا", "كندا", "نيوزيلندا", "المكسيك"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'البرازيل', '{"الأرجنتين", "البرازيل", "كولومبيا", "بيرو"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'الصين', '{"اليابان", "كوريا الجنوبية", "الصين", "فيتنام"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'جنوب أفريقيا', '{"كينيا", "نيجيريا", "جنوب أفريقيا", "غانا"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'اليونان', '{"تركيا", "إيطاليا", "اليونان", "كرواتيا"}', 'easy', 'ar', 'image', 'https://vignette.wikia.nocookie.net/cyberpunk/images/f/fd/Greece_Flag.png/revision/latest?cb=20200130010907'),
+('world_flags', 'ما هو علم الدولة ؟', 'مصر', '{"الأردن", "مصر", "السودان", "سوريا"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'اليابان', '{"كوريا", "اليابان", "إندونيسيا", "الفلبين"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Flag_of_Japan.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'المملكة المتحدة', '{"المملكة المتحدة", "إيرلندا", "بلجيكا", "هولندا"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/1200px-Flag_of_the_United_Kingdom_%281-2%29.svg.png'),
+('world_flags', 'ما هو علم الدولة ؟', 'المغرب', '{"الجزائر", "تونس", "المغرب", "ليبيا"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Morocco.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'سويسرا', '{"الدانمارك", "السويد", "سويسرا", "فنلندا"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/9/92/Civil_Ensign_of_Switzerland_%28Pantone%29.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'السعودية', '{"الإمارات", "قطر", "السعودية", "البحرين"}', 'easy', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'لبنان', '{"الأردن", "العراق", "لبنان", "المغرب"}', 'medium', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/5/59/Flag_of_Lebanon.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'البرتغال', '{"إسبانيا", "البرتغال", "البرازيل", "تشيلي"}', 'medium', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'أفغانستان', '{"باكستان", "أفغانستان", "إيران", "الهند"}', 'medium', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Flag_of_Afghanistan_%282004%E2%80%932021%2C_variant%29.svg/250px-Flag_of_Afghanistan_%282004%E2%80%932021%2C_variant%29.svg.png'),
+('world_flags', 'ما هو علم الدولة ؟', 'ألمانيا', '{"بلجيكا", "ألمانيا", "فرنسا", "هولندا"}', 'medium', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'كوريا الشمالية', '{"كوريا الجنوبية", "كوريا الشمالية", "اليابان", "الصين"}', 'medium', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_North_Korea.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'أندونيسيا', '{"بولندا", "أندونيسيا", "موناكو", "مالطا"}', 'medium', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'النمسا', '{"أيرلندا", "بلجيكا", "النمسا", "سويسرا"}', 'medium', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'المكسيك', '{"كندا", "المكسيك", "البرازيل", "الولايات المتحدة"}', 'medium', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'الهند', '{"باكستان", "الهند", "بنغلاديش", "سريلانكا"}', 'medium', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'إثيوبيا', '{"الصومال", "إثيوبيا", "نيجيريا", "كولومبيا"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'جزر سليمان', '{"جزر القمر", "جزر سليمان", "كيريباتي", "بالاو"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Solomon_Islands.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'ويلز', '{"إنجلترا", "إيرلندا الشمالية", "ويلز", "اسكتلندا"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/d/dc/Flag_of_Wales.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'كمبوديا', '{"فييتنام", "لاوس", "كمبوديا", "ماليزيا"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_Cambodia.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'قبرص', '{"مالطا", "اليونان", "قبرص", "إيطاليا"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Cyprus.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'موزمبيق', '{"موزمبيق", "السنغال", "جنوب أفريقيا", "زيمبابوي"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Mozambique.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'أوروجواي', '{"تشيلي", "باراغواي", "أوروجواي", "الإكوادور"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Uruguay.svg/2560px-Flag_of_Uruguay.svg.png'),
+('world_flags', 'ما هو علم الدولة ؟', 'ليختنشتاين', '{"موناكو", "ليختنشتاين", "لوكسمبورغ", "أندورا"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_Liechtenstein.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'بليز', '{"غواتيمالا", "هندوراس", "بليز", "نيكاراجوا"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Belize.svg'),
+('world_flags', 'ما هو علم الدولة ؟', 'ألبانيا', '{"روسيا", "صربيا", "ألبانيا", "الجبل الأسود"}', 'hard', 'ar', 'image', 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Flag_of_Albania.svg/1280px-Flag_of_Albania.svg.png');

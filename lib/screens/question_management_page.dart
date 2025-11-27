@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import '../models/question_model.dart';
-import '../models/category_model.dart';
-import '../services/supabase_service.dart';
-import 'edit_question_page.dart';
-import 'add_question_page.dart'; // We will create this next
+import 'dart:async';
+import 'package:nibras_app/models/question_model.dart';
+import 'package:nibras_app/models/category_model.dart';
+import 'package:nibras_app/services/supabase_service.dart';
+import 'package:nibras_app/screens/edit_question_page.dart';
+import 'package:nibras_app/screens/add_question_page.dart';
+import 'package:nibras_app/screens/category_management_page.dart';
+import '../widgets/admin_layout.dart';
 
 class QuestionManagementPage extends StatefulWidget {
   const QuestionManagementPage({super.key});
@@ -18,7 +21,10 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
   List<CategoryModel> _categories = [];
   bool _isLoading = true;
   String? _selectedCategoryId;
+  String? _selectedDifficulty;
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
+  Timer? _debounce;
   int _offset = 0;
   final int _limit = 20;
   bool _hasMore = true;
@@ -33,6 +39,8 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _searchController.dispose();
+    _debounce?.cancel();
     super.dispose();
   }
 
@@ -42,6 +50,13 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
         _hasMore) {
       _loadMoreQuestions();
     }
+  }
+
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      _applyFilters();
+    });
   }
 
   Future<void> _loadInitialData() async {
@@ -78,6 +93,8 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
         limit: _limit, 
         offset: _offset,
         categoryId: _selectedCategoryId,
+        difficulty: _selectedDifficulty,
+        searchQuery: _searchController.text,
       );
       
       if (mounted) {
@@ -93,9 +110,8 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
     }
   }
 
-  Future<void> _filterByCategory(String? categoryId) async {
+  Future<void> _applyFilters() async {
     setState(() {
-      _selectedCategoryId = categoryId;
       _questions = [];
       _offset = 0;
       _hasMore = true;
@@ -106,7 +122,9 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
       final questions = await _supabaseService.getAllQuestions(
         limit: _limit, 
         offset: 0,
-        categoryId: categoryId,
+        categoryId: _selectedCategoryId,
+        difficulty: _selectedDifficulty,
+        searchQuery: _searchController.text,
       );
       
       if (mounted) {
@@ -120,6 +138,16 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
     } catch (e) {
       if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  Future<void> _filterByCategory(String? categoryId) async {
+    _selectedCategoryId = categoryId;
+    await _applyFilters();
+  }
+
+  Future<void> _filterByDifficulty(String? difficulty) async {
+    _selectedDifficulty = difficulty;
+    await _applyFilters();
   }
 
   Future<void> _deleteQuestion(QuestionModel question) async {
@@ -165,77 +193,132 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('إدارة الأسئلة'),
-        backgroundColor: Colors.deepPurple.shade900,
-        foregroundColor: Colors.white,
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          final result = await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddQuestionPage()),
-          );
-          if (result == true) {
-            _filterByCategory(_selectedCategoryId); // Reload
-          }
-        },
-        backgroundColor: Colors.amber,
-        foregroundColor: Colors.black,
-        icon: const Icon(Icons.add),
-        label: const Text('إضافة سؤال'),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.deepPurple.shade900,
-              Colors.deepPurple.shade700,
-              Colors.purple.shade600,
-            ],
-          ),
+    return AdminLayout(
+      title: 'إدارة الأسئلة',
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddQuestionPage()),
+            );
+            if (result == true) {
+              _applyFilters(); // Reload
+            }
+          },
+          backgroundColor: Colors.blueAccent,
+          foregroundColor: Colors.white,
+          icon: const Icon(Icons.add),
+          label: const Text('إضافة سؤال'),
         ),
-        child: Column(
+        body: Column(
           children: [
-            // Category Filter
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              color: Colors.black.withOpacity(0.2),
-              child: Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                alignment: WrapAlignment.center,
-                children: [
-                  FilterChip(
-                    label: const Text('الكل'),
-                    selected: _selectedCategoryId == null,
-                    onSelected: (selected) => _filterByCategory(null),
-                    checkmarkColor: Colors.white,
-                    selectedColor: Colors.amber,
-                    labelStyle: TextStyle(
-                      color: _selectedCategoryId == null ? Colors.black : Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    backgroundColor: Colors.white.withOpacity(0.1),
+            // Search Bar
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              child: TextField(
+                controller: _searchController,
+                onChanged: _onSearchChanged,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'بحث عن سؤال...',
+                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  prefixIcon: const Icon(Icons.search, color: Colors.blueAccent),
+                  filled: true,
+                  fillColor: const Color(0xFF2A2A3C),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
                   ),
-                  ..._categories.map((category) {
-                    return FilterChip(
-                      label: Text(category.nameAr),
-                      selected: _selectedCategoryId == category.id,
-                      onSelected: (selected) => _filterByCategory(selected ? category.id : null),
-                      checkmarkColor: Colors.white,
-                      selectedColor: Colors.amber,
-                      labelStyle: TextStyle(
-                        color: _selectedCategoryId == category.id ? Colors.black : Colors.white,
-                        fontWeight: FontWeight.bold,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                ),
+              ),
+            ),
+            // Filters Row
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  // Category Filter
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF2A2A3C),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.blueAccent.withOpacity(0.3)),
                       ),
-                      backgroundColor: Colors.white.withOpacity(0.1),
-                    );
-                  }).toList(),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: _selectedCategoryId,
+                          hint: const Text(
+                            'كل الفئات',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          dropdownColor: const Color(0xFF2A2A3C),
+                          icon: const Icon(Icons.arrow_drop_down, color: Colors.blueAccent),
+                          isExpanded: true,
+                          items: [
+                            const DropdownMenuItem<String>(
+                              value: null,
+                              child: Text('كل الفئات', style: TextStyle(color: Colors.white)),
+                            ),
+                            ..._categories.map((category) {
+                              return DropdownMenuItem<String>(
+                                value: category.id,
+                                child: Text(category.nameAr, style: const TextStyle(color: Colors.white)),
+                              );
+                            }).toList(),
+                          ],
+                          onChanged: _filterByCategory,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  // Difficulty Filter
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF2A2A3C),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.purpleAccent.withOpacity(0.3)),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: _selectedDifficulty,
+                          hint: const Text(
+                            'كل الصعوبات',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          dropdownColor: const Color(0xFF2A2A3C),
+                          icon: const Icon(Icons.arrow_drop_down, color: Colors.purpleAccent),
+                          isExpanded: true,
+                          items: const [
+                            DropdownMenuItem<String>(
+                              value: null,
+                              child: Text('كل الصعوبات', style: TextStyle(color: Colors.white)),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: 'easy',
+                              child: Text('سهل', style: TextStyle(color: Colors.green)),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: 'medium',
+                              child: Text('متوسط', style: TextStyle(color: Colors.amber)),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: 'hard',
+                              child: Text('صعب', style: TextStyle(color: Colors.red)),
+                            ),
+                          ],
+                          onChanged: _filterByDifficulty,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -243,12 +326,12 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
             // Questions List
             Expanded(
               child: _isLoading && _questions.isEmpty
-                  ? const Center(child: CircularProgressIndicator(color: Colors.white))
+                  ? const Center(child: CircularProgressIndicator(color: Colors.blueAccent))
                   : _questions.isEmpty
                       ? const Center(
                           child: Text(
                             'لا توجد أسئلة',
-                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            style: TextStyle(color: Colors.grey, fontSize: 18),
                           ),
                         )
                       : ListView.builder(
@@ -260,7 +343,7 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
                               return const Center(
                                 child: Padding(
                                   padding: EdgeInsets.all(16),
-                                  child: CircularProgressIndicator(color: Colors.white),
+                                  child: CircularProgressIndicator(color: Colors.blueAccent),
                                 ),
                               );
                             }
@@ -268,10 +351,9 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
                             final question = _questions[index];
                             return Card(
                               margin: const EdgeInsets.only(bottom: 12),
-                              color: Colors.black.withOpacity(0.6),
+                              color: const Color(0xFF1E1E2D),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(color: Colors.white.withOpacity(0.1)),
                               ),
                               child: ListTile(
                                 contentPadding: const EdgeInsets.all(16),
@@ -311,7 +393,7 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
                                         if (question.mediaType != null && question.mediaType != 'none')
                                           Icon(
                                             _getMediaIcon(question.mediaType!),
-                                            color: Colors.blue.shade300,
+                                            color: Colors.grey,
                                             size: 16,
                                           ),
                                           ],
@@ -330,7 +412,7 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
                                                 const SizedBox(
                                                   height: 120,
                                                   child: Center(
-                                                    child: Icon(Icons.broken_image, color: Colors.white54),
+                                                    child: Icon(Icons.broken_image, color: Colors.grey),
                                                   ),
                                                 ),
                                           ),
@@ -342,7 +424,7 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     IconButton(
-                                      icon: const Icon(Icons.edit, color: Colors.blue),
+                                      icon: const Icon(Icons.edit, color: Colors.blueAccent),
                                       onPressed: () async {
                                         final result = await Navigator.push(
                                           context,
@@ -359,7 +441,7 @@ class _QuestionManagementPageState extends State<QuestionManagementPage> {
                                       },
                                     ),
                                     IconButton(
-                                      icon: const Icon(Icons.delete, color: Colors.red),
+                                      icon: const Icon(Icons.delete, color: Colors.redAccent),
                                       onPressed: () => _deleteQuestion(question),
                                     ),
                                   ],

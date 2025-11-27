@@ -3,7 +3,9 @@ import 'category_selection.dart';
 import 'reported_questions_page.dart';
 import 'user_management_page.dart';
 import 'question_management_page.dart';
+import 'category_management_page.dart';
 import 'profile_page.dart';
+import 'admin_dashboard_page.dart';
 import '../services/auth_service.dart';
 
 class MainMenu extends StatefulWidget {
@@ -187,13 +189,13 @@ class _MainMenuState extends State<MainMenu> {
                         if (_isAdmin || _isSuperAdmin) ...[
                           const SizedBox(height: 24),
 
-                          // View Reports Button (Admin Only)
+                          // Admin Dashboard Button
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
-                              color: Colors.red.withOpacity(0.2),
+                              color: Colors.blueGrey.withOpacity(0.2),
                               border: Border.all(
-                                color: Colors.red.withOpacity(0.5),
+                                color: Colors.blueGrey.withOpacity(0.5),
                                 width: 1,
                               ),
                             ),
@@ -202,7 +204,7 @@ class _MainMenuState extends State<MainMenu> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const ReportedQuestionsPage(),
+                                    builder: (context) => const AdminDashboardPage(),
                                   ),
                                 );
                               },
@@ -217,106 +219,10 @@ class _MainMenuState extends State<MainMenu> {
                               child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(Icons.admin_panel_settings, size: 24, color: Colors.white),
+                                  Icon(Icons.dashboard, size: 24, color: Colors.white),
                                   SizedBox(width: 12),
                                   Text(
-                                    'لوحة المشرف (البلاغات)',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          
-                          const SizedBox(height: 16),
-
-                          // Manage Questions Button (Admin Only)
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.green.withOpacity(0.2),
-                              border: Border.all(
-                                color: Colors.green.withOpacity(0.5),
-                                width: 1,
-                              ),
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const QuestionManagementPage(),
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 16),
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.quiz, size: 24, color: Colors.white),
-                                  SizedBox(width: 12),
-                                  Text(
-                                    'إدارة الأسئلة',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-
-                        if (_isSuperAdmin) ...[
-                          const SizedBox(height: 24),
-
-                          // User Management Button (Super Admin Only)
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.blue.withOpacity(0.2),
-                              border: Border.all(
-                                color: Colors.blue.withOpacity(0.5),
-                                width: 1,
-                              ),
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const UserManagementPage(),
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 16),
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.manage_accounts, size: 24, color: Colors.white),
-                                  SizedBox(width: 12),
-                                  Text(
-                                    'إدارة المستخدمين',
+                                    'لوحة التحكم',
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,

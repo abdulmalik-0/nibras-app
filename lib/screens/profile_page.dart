@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import '../models/user_model.dart';
 import 'login_page.dart';
+import 'subscription_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -121,7 +122,82 @@ class _ProfilePageState extends State<ProfilePage> {
                       _buildInfoCard('اسم المستخدم', _user!.username),
                       const SizedBox(height: 16),
                       _buildInfoCard('البريد الإلكتروني', _user!.email),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 24),
+
+                      // Subscription Status Card
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: _user!.isVip ? Colors.amber.withOpacity(0.5) : Colors.white.withOpacity(0.2),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  _user!.isVip ? Icons.diamond : Icons.stars,
+                                  color: _user!.isVip ? Colors.amber : Colors.grey,
+                                  size: 32,
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  _user!.isVip ? 'عضوية VIP نشطة' : 'عضوية مجانية',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: _user!.isVip ? Colors.amber : Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (_user!.isVip && _user!.subscriptionEndDate != null) ...[
+                              const SizedBox(height: 12),
+                              Text(
+                                'ينتهي الاشتراك في: ${_formatDate(_user!.subscriptionEndDate!)}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white.withOpacity(0.7),
+                                ),
+                                textDirection: TextDirection.ltr,
+                              ),
+                            ],
+                            if (!_user!.isVip) ...[
+                              const SizedBox(height: 16),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  final result = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const SubscriptionPage()),
+                                  );
+                                  if (result == true) {
+                                    _loadUserData(); // Refresh profile if subscribed
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.amber,
+                                  foregroundColor: Colors.black,
+                                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'ترقية إلى VIP',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 24),
                       _buildInfoCard('الأسئلة المجابة', '${_user!.questionsAnsweredCount}'),
                       const SizedBox(height: 32),
                     ],
@@ -154,6 +230,16 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
       ),
     );
+  }
+
+  String _formatDate(DateTime date) {
+    final localDate = date.toLocal();
+    final year = localDate.year;
+    final month = localDate.month.toString().padLeft(2, '0');
+    final day = localDate.day.toString().padLeft(2, '0');
+    final hour = localDate.hour.toString().padLeft(2, '0');
+    final minute = localDate.minute.toString().padLeft(2, '0');
+    return '$year-$month-$day $hour:$minute';
   }
 
   Widget _buildInfoCard(String label, String value) {

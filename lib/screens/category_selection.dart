@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/category_model.dart';
+import '../models/user_model.dart';
 import '../services/supabase_service.dart';
 import '../services/auth_service.dart';
 import 'team_setup.dart';
+import 'subscription_page.dart';
 
 class CategorySelection extends StatefulWidget {
   const CategorySelection({super.key});
@@ -13,6 +15,36 @@ class CategorySelection extends StatefulWidget {
 
 class _CategorySelectionState extends State<CategorySelection> {
   final Set<String> _selectedCategories = {};
+  bool _isVip = false;
+  UserModel? _user;
+  bool _isLoadingUser = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkVipStatus();
+  }
+
+  Future<void> _checkVipStatus() async {
+    final authService = AuthService();
+    final supabaseService = SupabaseService();
+    final userId = authService.currentUser?.id;
+    
+    if (userId != null) {
+      final user = await supabaseService.getUser(userId);
+      if (mounted && user != null) {
+        setState(() {
+          _user = user;
+          _isVip = user.hasActiveVip;
+          _isLoadingUser = false;
+        });
+      }
+    } else {
+      if (mounted) {
+        setState(() => _isLoadingUser = false);
+      }
+    }
+  }
   
   // Helper to get icon data from string name
   IconData _getIconData(String? iconName) {
@@ -54,6 +86,8 @@ class _CategorySelectionState extends State<CategorySelection> {
       Colors.purple,
       Colors.red,
       Colors.indigo,
+      Colors.pink,
+      Colors.cyan,
     ];
     return colors[index % colors.length];
   }
@@ -92,6 +126,128 @@ class _CategorySelectionState extends State<CategorySelection> {
       'answered': answered,
       'remaining': remaining > 0 ? remaining : 0,
     };
+  }
+
+  Future<void> _showFreeTrialDialog(CategoryModel category) async {
+    final result = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.card_giftcard, color: Colors.green),
+            SizedBox(width: 8),
+            Text('تجربة مجانية'),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'يمكنك تجربة قسم "${category.nameAr}" مجانًا مرة واحدة اليوم.',
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'أو اشترك الآن للوصول غير المحدود!',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('إلغاء'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'subscribe'),
+            style: TextButton.styleFrom(foregroundColor: Colors.amber.shade800),
+            child: const Text('اشتراك VIP'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, 'trial'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('ابدأ التجربة'),
+          ),
+        ],
+      ),
+    );
+
+    if (result == 'subscribe') {
+      if (mounted) {
+        final subscribed = await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SubscriptionPage()),
+        );
+        
+        if (subscribed == true) {
+          _checkVipStatus(); // Refresh status
+        }
+      }
+    } else if (result == 'trial') {
+      try {
+        await SupabaseService().useFreeTrial(_user!.uid, category.id);
+        await _checkVipStatus(); // Refresh user data to update trial usage
+        _toggleCategory(category.id); // Auto-select after trial activation
+        
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('تم تفعيل التجربة المجانية لهذا القسم!')),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('خطأ: $e')),
+          );
+        }
+      }
+    }
+  }
+
+  Future<void> _showSubscriptionDialog() async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Row(
+          children: [
+            Icon(Icons.lock, color: Colors.amber),
+            SizedBox(width: 8),
+            Text('محتوى VIP'),
+          ],
+        ),
+        content: const Text(
+          'هذا القسم متاح فقط لمشتركي VIP. اشترك الآن للوصول إلى جميع الأقسام والمميزات الحصرية!',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('لاحقاً'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.amber,
+              foregroundColor: Colors.black,
+            ),
+            child: const Text('اشترك الآن'),
+          ),
+        ],
+      ),
+    );
+
+    if (result == true && mounted) {
+      final subscribed = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SubscriptionPage()),
+      );
+      
+      if (subscribed == true) {
+        _checkVipStatus(); // Refresh status
+      }
+    }
   }
 
   Future<void> _resetCategoryProgress(String categoryId) async {
@@ -178,24 +334,57 @@ class _CategorySelectionState extends State<CategorySelection> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 48),
+                        if (!_isVip)
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.amber.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.amber.withOpacity(0.5)),
+                            ),
+                            child: IconButton(
+                              onPressed: _showSubscriptionDialog,
+                              icon: const Icon(Icons.diamond_outlined, color: Colors.amber),
+                              tooltip: 'اشتراك VIP',
+                            ),
+                          )
+                        else
+                          const SizedBox(width: 48),
                       ],
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'اختر من 1 إلى 6 فئات',
+                      _isVip ? 'أهلاً بك في عضوية VIP - جميع الفئات متاحة' : 'اختر من 1 إلى 6 فئات',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.white.withOpacity(0.8),
+                        color: _isVip ? Colors.amber : Colors.white.withOpacity(0.8),
+                        fontWeight: _isVip ? FontWeight.bold : FontWeight.normal,
                       ),
                     ),
+                    if (_isVip && _user != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          _user!.isSuperAdmin 
+                              ? '(Super Admin)' 
+                              : (_user!.subscriptionEndDate != null 
+                                  ? 'ينتهي في: ${_formatDate(_user!.subscriptionEndDate!)}' 
+                                  : '(VIP دائم)'),
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.white.withOpacity(0.5),
+                          ),
+                          textDirection: TextDirection.ltr,
+                        ),
+                      ),
                   ],
                 ),
               ),
               
               // Categories Grid
               Expanded(
-                child: FutureBuilder<List<CategoryModel>>(
+                child: _isLoadingUser 
+                  ? const Center(child: CircularProgressIndicator(color: Colors.white))
+                  : FutureBuilder<List<CategoryModel>>(
                   future: SupabaseService().getCategories(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
@@ -206,8 +395,21 @@ class _CategorySelectionState extends State<CategorySelection> {
                       return const Center(child: CircularProgressIndicator(color: Colors.white));
                     }
 
-                    final categories = snapshot.data ?? [];
-
+                    var categories = snapshot.data ?? [];
+                    
+                    // Filter categories based on visibility
+                    if (_user != null && _user!.isAdmin) {
+                      // Admins see everything
+                    } else if (_isVip) {
+                      // VIPs see public, vip_only, and hidden_for_regular
+                      // Hide hidden_for_all
+                      categories = categories.where((c) => !c.isHiddenForAll).toList();
+                    } else {
+                      // Regular users see public and vip_only (locked)
+                      // Hide hidden_for_regular and hidden_for_all
+                      categories = categories.where((c) => !c.isHiddenForRegular && !c.isHiddenForAll).toList();
+                    }
+                    
                     if (categories.isEmpty) {
                       return const Center(child: Text('No categories found', style: TextStyle(color: Colors.white)));
                     }
@@ -226,8 +428,28 @@ class _CategorySelectionState extends State<CategorySelection> {
                             final color = _getColor(category.color, index); 
                             final isSelected = _selectedCategories.contains(category.id);
                             
+                            // Lock logic: Locked if it's VIP only AND user is not VIP
+                            // Note: "hidden_for_regular" is visible to VIPs, so it behaves like public for them.
+                            // But if a regular user somehow sees it (shouldn't happen due to filter), it should probably be locked?
+                            // Actually, if it's hidden, they don't see it.
+                            // "vip_only" means visible to all but locked for regular.
+                            
+                            final isLocked = category.isVipOnly && !_isVip;
+                            final hasUsedTrial = _user?.hasUsedFreeTrialToday(category.id) ?? false;
+                            final canUseTrial = isLocked && !hasUsedTrial;
+                            
                             return GestureDetector(
-                              onTap: () => _toggleCategory(category.id),
+                              onTap: () {
+                                if (isLocked) {
+                                  if (canUseTrial) {
+                                    _showFreeTrialDialog(category);
+                                  } else {
+                                    _showSubscriptionDialog();
+                                  }
+                                } else {
+                                  _toggleCategory(category.id);
+                                }
+                              },
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 200),
                                 width: 160,
@@ -243,11 +465,11 @@ class _CategorySelectionState extends State<CategorySelection> {
                                           ],
                                         )
                                       : null,
-                                  color: isSelected ? null : Colors.white,
+                                  color: isSelected ? null : (isLocked && !canUseTrial ? Colors.grey.shade300 : Colors.white),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
-                                    color: isSelected ? color : Colors.grey.shade300,
-                                    width: 2,
+                                    color: isSelected ? color : (canUseTrial ? Colors.green : Colors.grey.shade300),
+                                    width: canUseTrial ? 3 : 2,
                                   ),
                                   boxShadow: [
                                     BoxShadow(
@@ -296,9 +518,9 @@ class _CategorySelectionState extends State<CategorySelection> {
                                         const SizedBox(height: 8),
                                         Center(
                                           child: Icon(
-                                            icon,
+                                            isLocked && !canUseTrial ? Icons.lock : icon,
                                             size: 50,
-                                            color: isSelected ? Colors.white : color,
+                                            color: isLocked && !canUseTrial ? Colors.grey : (isSelected ? Colors.white : color),
                                           ),
                                         ),
                                         const SizedBox(height: 12),
@@ -311,7 +533,7 @@ class _CategorySelectionState extends State<CategorySelection> {
                                               style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
-                                                color: isSelected ? Colors.white : Colors.black87,
+                                                color: isLocked && !canUseTrial ? Colors.grey.shade600 : (isSelected ? Colors.white : Colors.black87),
                                               ),
                                             ),
                                           ),
@@ -327,16 +549,62 @@ class _CategorySelectionState extends State<CategorySelection> {
                                           ),
                                       ],
                                     ),
-                                    Positioned(
-                                      top: 0,
-                                      left: 0,
-                                      child: IconButton(
-                                        icon: const Icon(Icons.refresh, size: 20),
-                                        color: isSelected ? Colors.white70 : Colors.grey.shade400,
-                                        onPressed: () => _resetCategoryProgress(category.id),
-                                        tooltip: 'إعادة تعيين التقدم',
+                                    if (category.isVipOnly)
+                                      Positioned(
+                                        top: 8,
+                                        right: 8,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(4),
+                                          decoration: BoxDecoration(
+                                            color: canUseTrial ? Colors.green : Colors.amber,
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: canUseTrial 
+                                            ? const Text('تجربة مجانية', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold))
+                                            : const Icon(
+                                                Icons.diamond,
+                                                color: Colors.white,
+                                                size: 16,
+                                              ),
+                                        ),
                                       ),
-                                    ),
+                                    if (category.isHiddenForRegular)
+                                      Positioned(
+                                        top: 8,
+                                        right: 8,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                          decoration: BoxDecoration(
+                                            color: Colors.blueGrey,
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: const Icon(Icons.visibility_off, size: 14, color: Colors.white),
+                                        ),
+                                      ),
+                                    if (category.isHiddenForAll)
+                                      Positioned(
+                                        top: 8,
+                                        right: 8,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                          decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: const Icon(Icons.lock_outline, size: 14, color: Colors.white),
+                                        ),
+                                      ),
+                                    if (!isLocked)
+                                      Positioned(
+                                        top: 0,
+                                        left: 0,
+                                        child: IconButton(
+                                          icon: const Icon(Icons.refresh, size: 20),
+                                          color: isSelected ? Colors.white70 : Colors.grey.shade400,
+                                          onPressed: () => _resetCategoryProgress(category.id),
+                                          tooltip: 'إعادة تعيين التقدم',
+                                        ),
+                                      ),
                                   ],
                                 ),
                               ),
@@ -423,5 +691,14 @@ class _CategorySelectionState extends State<CategorySelection> {
         ),
       ),
     );
+  }
+  String _formatDate(DateTime date) {
+    final localDate = date.toLocal();
+    final year = localDate.year;
+    final month = localDate.month.toString().padLeft(2, '0');
+    final day = localDate.day.toString().padLeft(2, '0');
+    final hour = localDate.hour.toString().padLeft(2, '0');
+    final minute = localDate.minute.toString().padLeft(2, '0');
+    return '$year-$month-$day $hour:$minute';
   }
 }

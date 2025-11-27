@@ -5,6 +5,7 @@ import '../services/auth_service.dart';
 import '../models/question_model.dart';
 import 'edit_question_page.dart';
 import 'package:intl/intl.dart' as intl;
+import '../widgets/admin_layout.dart';
 
 class ReportedQuestionsPage extends StatefulWidget {
   const ReportedQuestionsPage({super.key});
@@ -328,46 +329,37 @@ class _ReportedQuestionsPageState extends State<ReportedQuestionsPage> with Sing
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('البلاغات'),
-        backgroundColor: Colors.deepPurple.shade900,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Colors.amber,
-          labelColor: Colors.amber,
-          unselectedLabelColor: Colors.white70,
-          tabs: const [
-            Tab(text: 'قيد المراجعة'),
-            Tab(text: 'صحيحة'),
-            Tab(text: 'غير صحيحة'),
-          ],
-        ),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.deepPurple.shade900,
-              Colors.deepPurple.shade700,
-              Colors.purple.shade600,
-            ],
+    return AdminLayout(
+      title: 'البلاغات',
+      child: Column(
+        children: [
+          Container(
+            color: const Color(0xFF1E1E2D),
+            child: TabBar(
+              controller: _tabController,
+              indicatorColor: Colors.blueAccent,
+              labelColor: Colors.blueAccent,
+              unselectedLabelColor: Colors.grey,
+              tabs: const [
+                Tab(text: 'قيد المراجعة'),
+                Tab(text: 'صحيحة'),
+                Tab(text: 'غير صحيحة'),
+              ],
+            ),
           ),
-        ),
-        child: _isLoading
-            ? const Center(child: CircularProgressIndicator(color: Colors.white))
-            : TabBarView(
-                controller: _tabController,
-                children: [
-                  _buildQuestionList('pending'),
-                  _buildQuestionList('valid'),
-                  _buildQuestionList('invalid'),
-                ],
-              ),
+          Expanded(
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator(color: Colors.blueAccent))
+                : TabBarView(
+                    controller: _tabController,
+                    children: [
+                      _buildQuestionList('pending'),
+                      _buildQuestionList('valid'),
+                      _buildQuestionList('invalid'),
+                    ],
+                  ),
+          ),
+        ],
       ),
     );
   }
@@ -401,10 +393,9 @@ class _ReportedQuestionsPageState extends State<ReportedQuestionsPage> with Sing
   Widget _buildQuestionCard(QuestionModel question, String status) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
-      color: Colors.black.withOpacity(0.6),
+      color: const Color(0xFF1E1E2D),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.white.withOpacity(0.1), width: 1),
       ),
       child: Theme(
         data: Theme.of(context).copyWith(
